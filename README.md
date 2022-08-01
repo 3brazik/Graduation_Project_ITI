@@ -161,14 +161,14 @@ spec:
       - name: Get  loadbalancer 
         shell: 'kubectl get svc -n jenkins | grep load-balancer'
         register: load-balancer-url 
-				#get load-balancer IP
+#get load-balancer IP
       - debug:
         var: load-balancer-url.stdout_lines 
 
       - name : get password to login to jenkins 
         shell: 'kubectl exec  $(kubectl get pods -n jenkins | grep jenkins-master | cut -d" " -f1) -n jenkins -- cat /var/jenkins_home/secrets/initialAdminPassword '
         register: jenkins-password
-			#get password of jenkins server
+#get password of jenkins server
       - debug: 
         var : jenkins-password.stdout_lines
 ```

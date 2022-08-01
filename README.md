@@ -283,4 +283,4 @@ pipeline {
 
 # Then, ssh to the instance and get the IP
 
-![Untitled](imgs/Untitled%206.png)
+![Untitled](imgs/myimg.png)

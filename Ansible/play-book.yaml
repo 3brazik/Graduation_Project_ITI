@@ -1,0 +1,44 @@
+- hosts: all
+  remote_user: m3brazik
+  become: true
+  tasks: 
+      - name: auth with the cluster
+        shell: gcloud container clusters get-credentials private-standerd-gke-cluster --zone europe-west1-b
+      - name: copy files
+        copy:
+          src: ./k8s_files/.
+          dest: kube_files/.
+
+
+      - name : Create namespace
+        shell: kubectl create -f /home/m3brazik/kube_files/namespace.yaml  
+      
+      - name: go to jenkins namespace
+        shell: kubectl config set-context --current --namespace=jenkins
+
+      - name : Create volume 
+        shell: kubectl create -f /home/m3brazik/kube_files/volume.yaml
+        
+      - name : Create Deployment
+        shell: kubectl create -f /home/m3brazik/kube_files/deployment.yaml
+
+      - name : Create load-balancer
+        shell: kubectl create -f /home/m3brazik/kube_files/loadbalancer.yaml
+      
+      - name : sleep untill load balancer getting ready
+        shell: sleep 60
+      
+      - name: Get  loadbalancer 
+        shell: 'kubectl get svc -n jenkins | grep load-balancer'
+        register: load-balancer-url 
+
+      - debug:
+        var: load-balancer-url.stdout_lines 
+
+      - name : get password to login to jenkins 
+        shell: 'kubectl exec  $(kubectl get pods -n jenkins | grep jenkins-master | cut -d" " -f1) -n jenkins -- cat /var/jenkins_home/secrets/initialAdminPassword '
+        register: jenkins-password
+
+      - debug: 
+        var : jenkins-password.stdout_lines
+  

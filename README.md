@@ -1,6 +1,6 @@
 # Graduation Project
 
-![Untitled](Graduation%20Project%20d2f3965c56884900ba9fdfc0b26b4a47/Untitled.png)
+![Untitled](imgs/Untitled.png)
 
 # Steps
 
@@ -29,7 +29,7 @@ Create  metadata to apply startups script to run commands to configure and
 - install docker
 - install git
 
-![Untitled](Graduation%20Project%20d2f3965c56884900ba9fdfc0b26b4a47/Untitled%201.png)
+![Untitled](imgs/Untitled%201.png)
 
 Then, ssh to the instance and  generate ssh public and private key
 
@@ -180,8 +180,8 @@ ansible-playbook -i inventory  play-book.yaml
 
 ## Then, get the load balancer  IP
 
-![Untitled](Graduation%20Project%20d2f3965c56884900ba9fdfc0b26b4a47/Untitled%202.png)
-
+![Untitled](imgs/Untitled%202.png)
+![Untitled](imgs/img.png)
 # After creating jenkins server we need to create Docker file to build our app image.
 
 ```docker
@@ -237,9 +237,9 @@ spec:
 
 go to manage jenkins > Manage nodes and cloud > New Node
 
-![Untitled](Graduation%20Project%20d2f3965c56884900ba9fdfc0b26b4a47/Untitled%203.png)
+![Untitled](imgs/Untitled%203.png)
 
-![Untitled](Graduation%20Project%20d2f3965c56884900ba9fdfc0b26b4a47/Untitled%204.png)
+![Untitled](imgs/Untitled%204.png)
 
 ## Then, create jenkins pipeline script
 
@@ -279,8 +279,8 @@ pipeline {
 
 ## Build pipeline and go to console logs to see the results
 
-![Untitled](Graduation%20Project%20d2f3965c56884900ba9fdfc0b26b4a47/Untitled%205.png)
+![Untitled](imgs/Untitled%205.png)
 
 # Then, ssh to the instance and get the IP
 
-![Untitled](Graduation%20Project%20d2f3965c56884900ba9fdfc0b26b4a47/Untitled%206.png)
+![Untitled](imgs/Untitled%206.png)

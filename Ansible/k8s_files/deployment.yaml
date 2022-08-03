@@ -13,6 +13,10 @@ spec:
       labels:
         app: jenkins-3brazik
     spec:
+      securityContext:
+          fsGroup: 1000 
+          runAsUser: 1000
+      serviceAccountName: jenkins-admin
       containers:
         - name: jenkins
           image: jenkins/jenkins:lts

@@ -35,6 +35,8 @@ resource "google_compute_instance" "private_vm_instance" {
                                 sudo chown -R m3brazik:m3brazik /home/m3brazik/.config/
                                 sudo cp -r /root/.kube/ /home/m3brazik/
                                 sudo chown -R m3brazik:m3brazik /home/m3brazik/.kube/
+                                gcloud container clusters get-credentials private-standerd-gke-cluster --zone europe-west1-b
+                                gcloud container clusters get-credentials private-standerd-gke-cluster --zone europe-west1-b
                                   EOF
 
 
@@ -63,4 +65,9 @@ resource "google_compute_instance" "private_vm_instance" {
         scopes = [ "cloud-platform" ] #See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.
 }
 
+}
+output "instace_ip" {
+  value = google_compute_instance.private_vm_instance.instance_ip
+  
+  
 }

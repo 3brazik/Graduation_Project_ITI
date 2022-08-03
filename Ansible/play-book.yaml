@@ -8,8 +8,7 @@
         copy:
           src: ./k8s_files/.
           dest: kube_files/.
-
-
+          
       - name : Create namespace
         shell: kubectl create -f /home/m3brazik/kube_files/namespace.yaml  
       

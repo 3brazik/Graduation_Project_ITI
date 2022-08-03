@@ -156,7 +156,8 @@ spec:
         shell: kubectl create -f /home/m3brazik/kube_files/loadbalancer.yaml
       
       - name : sleep untill load balancer getting ready
-        shell: sleep 60
+        pause :
+            minutes: 2
       
       - name: Get  loadbalancer 
         shell: 'kubectl get svc -n jenkins | grep load-balancer'

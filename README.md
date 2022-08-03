@@ -134,17 +134,19 @@ spec:
   tasks: 
       - name: auth with the cluster
         shell: gcloud container clusters get-credentials private-standerd-gke-cluster --zone europe-west1-b
-     
-			- name: copy files
+      - name: copy files
         copy:
           src: ./k8s_files/.
           dest: kube_files/.
-
+          
       - name : Create namespace
         shell: kubectl create -f /home/m3brazik/kube_files/namespace.yaml  
       
       - name: go to jenkins namespace
         shell: kubectl config set-context --current --namespace=jenkins
+
+      - name: create service account 
+        shell: kubectl create -f /home/m3brazik/kube_files/serviceAccount.yaml  
 
       - name : Create volume 
         shell: kubectl create -f /home/m3brazik/kube_files/volume.yaml
@@ -156,22 +158,26 @@ spec:
         shell: kubectl create -f /home/m3brazik/kube_files/loadbalancer.yaml
       
       - name : sleep untill load balancer getting ready
-        pause :
+        pause:
             minutes: 2
-      
-      - name: Get  loadbalancer 
+            
+      - name: auth with the cluster
+        shell: gcloud container clusters get-credentials private-standerd-gke-cluster --zone europe-west1-b      
+        
+      - name: Get jenkins loadbalancer ip 
         shell: 'kubectl get svc -n jenkins | grep load-balancer'
-        register: load-balancer-url 
-#get load-balancer IP
-      - debug:
-        var: load-balancer-url.stdout_lines 
+        register: ip 
 
-      - name : get password to login to jenkins 
-        shell: 'kubectl exec  $(kubectl get pods -n jenkins | grep jenkins-master | cut -d" " -f1) -n jenkins -- cat /var/jenkins_home/secrets/initialAdminPassword '
-        register: jenkins-password
-#get password of jenkins server
-      - debug: 
-        var : jenkins-password.stdout_lines
+      - debug:
+          var: ip.stdout_lines 
+
+      - name: Get jenkins password
+        shell: 'kubectl exec  $(kubectl get pods -n jenkins | grep jenkins- | cut -d" " -f1) -n jenkins -- cat /var/jenkins_home/secrets/initialAdminPassword '
+        register: password
+
+      - debug:
+          var: password.stdout_lines
+
 ```
 
 ```bash

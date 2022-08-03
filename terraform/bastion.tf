@@ -66,8 +66,6 @@ resource "google_compute_instance" "private_vm_instance" {
 }
 
 }
-output "instace_ip" {
-  value = google_compute_instance.private_vm_instance.instance_ip
-  
-  
+output "ip" {
+  value = google_compute_instance.private_vm_instance.network_interface.0.access_config.0.nat_ip
 }
